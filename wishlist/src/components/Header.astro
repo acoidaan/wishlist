@@ -1,6 +1,9 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+
+// Rutas que respetan GitHub Pages (base '/wishlist/')
 const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
+const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
 ---
 
 <header class="site-header">
@@ -28,17 +31,20 @@ const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
       </svg>
     </div>
 
+    <!-- Selector de orden a la derecha de la búsqueda -->
+    <div class="sort">
+      <img class="sort-icon" src={filterIcon} alt="" aria-hidden="true" />
+      <label class="sr-only" for="wishlist-sort">Ordenar por precio</label>
+      <select id="wishlist-sort" aria-label="Ordenar por precio">
+        <option value="default">Orden original</option>
+        <option value="asc">Precio: menor → mayor</option>
+        <option value="desc">Precio: mayor → menor</option>
+      </select>
+    </div>
+
     <div class="toggle-wrap">
       <ThemeToggle />
     </div>
-  </div>
-
-  <div class="sort">
-    <select id="wishlist-sort" aria-label="Ordenar">
-      <option value="default">Orden original</option>
-      <option value="asc">Precio: menor → mayor</option>
-      <option value="desc">Precio: mayor → menor</option>
-    </select>
   </div>
 </header>
 
@@ -56,6 +62,24 @@ const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
 </script>
 
 <style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    background: color-mix(in oklab, var(--bg), #000 6%);
+    border-bottom: 1px solid var(--border);
+  }
+  .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto; /* title | search | sort | toggle */
+    grid-template-areas: "title search sort toggle";
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
   .brand {
     grid-area: title;
     display: flex;
@@ -71,49 +95,13 @@ const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
     height: 22px;
     display: block;
     color: var(--text);
-    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); /* evita borrones */
-    transition:
-      transform 0.15s ease,
-      color 0.2s ease;
-  }
-  .brand:hover .logo {
-    transform: scale(1.05);
-    color: var(--accent);
   }
 
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(8px);
-    background: color-mix(in oklab, var(--bg), #000 6%);
-    border-bottom: 1px solid var(--border);
-  }
-  .inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas: "title search toggle";
-    gap: 12px;
-    padding: 10px 16px;
-  }
-  .title {
-    grid-area: title;
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-  }
   .search {
     grid-area: search;
     position: relative;
     align-self: center;
   }
-  .toggle-wrap {
-    grid-area: toggle;
-    align-self: center;
-  }
-
   .search input {
     width: 100%;
     height: 38px;
@@ -143,22 +131,78 @@ const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
     pointer-events: none;
   }
 
-  /* MUY IMPORTANTE: el toggle dentro del header, sin posición fixed */
+  /* === Orden === */
+  .sort {
+    grid-area: sort;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: center;
+    min-width: 210px; /* tamaño cómodo */
+  }
+  .sort-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.85;
+    color: var(--muted);
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+  }
+  .sort select {
+    height: 38px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position:
+      calc(100% - 16px) 53%,
+      calc(100% - 11px) 53%;
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 28px; /* espacio caret */
+  }
+  .sort select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .toggle-wrap {
+    grid-area: toggle;
+    align-self: center;
+  }
   .theme-switch {
     position: static !important;
   }
 
-  /* Responsive sin solapes */
-  @media (max-width: 768px) {
+  /* Accesibilidad */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
     .inner {
       grid-template-columns: 1fr auto;
       grid-template-areas:
         "title toggle"
-        "search search";
+        "search search"
+        "sort sort";
       gap: 10px;
     }
-    .search input {
-      height: 40px;
+    .sort {
+      min-width: unset;
     }
   }
 </style>
