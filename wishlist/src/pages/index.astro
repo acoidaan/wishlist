@@ -1,0 +1,173 @@
+---
+import items from "../data/items.json";
+import Card from "../components/Card.astro";
+import Header from "../components/Header.astro";
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>aco’s wishlist</title>
+  <link rel="icon" href="/assets/gift-box.svg" type="image/svg+xml" />
+</head> 
+
+<Header />
+
+<main>
+  <section class="grid" id="grid">
+    {items.map((item) => <Card item={item} />)}
+  </section>
+</main>
+
+<style is:global>
+  :root {
+    --bg: #0b0f14; /* oscura por defecto si quieres; si prefieres claro, invierte con el bloque de before */
+    --text: #e6e7eb;
+    --muted: #b1b5bd;
+    --card: #0f1620;
+    --border: #1c2330;
+    --accent: #8ab4ff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
+  /* Preferencia del sistema */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f7f7f8;
+      --text: #0b0f14;
+      --muted: #555;
+      --card: #fff;
+      --border: #e4e6eb;
+      --accent: #6ea8fe;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+  /* Forzar por toggle */
+  html[data-theme="light"] {
+    --bg: #f7f7f8;
+    --text: #0b0f14;
+    --muted: #555;
+    --card: #fff;
+    --border: #e4e6eb;
+    --accent: #6ea8fe;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  html[data-theme="dark"] {
+    --bg: #0b0f14;
+    --text: #e6e7eb;
+    --muted: #b1b5bd;
+    --card: #0f1620;
+    --border: #1c2330;
+    --accent: #8ab4ff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
+
+  body {
+    font-family:
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Arial,
+      sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  h1 {
+    margin: 20px 18px 6px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  /* Masonry estilo Pinterest */
+  .grid {
+    column-width: 260px;
+    column-gap: 14px;
+    padding: 18px;
+  }
+  .grid > * {
+    break-inside: avoid;
+    margin: 0 0 14px;
+  }
+</style>
+
+<script is:inline>
+  function tokenize(q) {
+    return String(q || "")
+      .split(/[\s,]+/)
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
+  }
+
+  function init() {
+    const grid = document.getElementById("grid");
+    const input = document.getElementById("wishlist-search");
+    if (!grid) return;
+
+    const cards = Array.from(grid.children);
+
+    function highlightChips(terms) {
+      const set = new Set(terms);
+      document.querySelectorAll(".chip[data-tag]").forEach((chip) => {
+        const t = (chip.dataset.tag || "").toLowerCase();
+        chip.classList.toggle("active", set.has(t));
+      });
+    }
+
+    function matches(card, terms) {
+      if (terms.length === 0) return true;
+      const haystack = (
+        (card.getAttribute("data-title") || "") +
+        " " +
+        (card.getAttribute("data-tags") || "")
+      ).toLowerCase();
+      return terms.every((t) => haystack.includes(t));
+    }
+
+    function applyFilter(q) {
+      const terms = tokenize(q);
+      for (const card of cards) {
+        card.style.display = matches(card, terms) ? "" : "none";
+      }
+      highlightChips(terms);
+    }
+
+    // Evento desde el header
+    document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
+
+    // Click en chip: toggle del término en el input + filtro
+    document.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip[data-tag]");
+      if (!chip) return;
+
+      const term = (chip.dataset.tag || "").toLowerCase();
+      const terms = new Set(tokenize(input?.value || ""));
+
+      if (terms.has(term)) terms.delete(term);
+      else terms.add(term);
+      const next = Array.from(terms).join(" ");
+      if (input) input.value = next;
+      applyFilter(next);
+    });
+  }
+
+  // Asegura DOM listo
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>

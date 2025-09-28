@@ -1,0 +1,160 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="site-header">
+  <div class="inner">
+    <h1 class="brand">
+      <img
+        src="../assets/gift-box.svg"
+        alt=""
+        aria-hidden="true"
+        class="logo"
+      />
+      <span>aco's wishlist</span>
+    </h1>
+
+    <div class="search">
+      <input
+        id="wishlist-search"
+        type="search"
+        placeholder="Buscar por título o tag…"
+        aria-label="Buscar por título o tag"
+        autocomplete="off"
+      />
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M21 21l-4.3-4.3m1.3-4.7a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="toggle-wrap">
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Emite evento de búsqueda (debounce)
+  const input = document.getElementById("wishlist-search");
+  let t;
+  input.addEventListener("input", () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const q = input.value.trim().toLowerCase();
+      document.dispatchEvent(new CustomEvent("wishlist:query", { detail: q }));
+    }, 80);
+  });
+</script>
+
+<style>
+  .brand {
+    grid-area: title;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .logo {
+    width: 22px;
+    height: 22px;
+    display: block;
+    color: var(--text);
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); /* evita borrones */
+    transition:
+      transform 0.15s ease,
+      color 0.2s ease;
+  }
+  .brand:hover .logo {
+    transform: scale(1.05);
+    color: var(--accent);
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    background: color-mix(in oklab, var(--bg), #000 6%);
+    border-bottom: 1px solid var(--border);
+  }
+  .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "title search toggle";
+    gap: 12px;
+    padding: 10px 16px;
+  }
+  .title {
+    grid-area: title;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .search {
+    grid-area: search;
+    position: relative;
+    align-self: center;
+  }
+  .toggle-wrap {
+    grid-area: toggle;
+    align-self: center;
+  }
+
+  .search input {
+    width: 100%;
+    height: 38px;
+    padding: 8px 36px 8px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+  }
+  .search input::placeholder {
+    color: var(--muted);
+  }
+  .search input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .search .icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--muted);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  /* MUY IMPORTANTE: el toggle dentro del header, sin posición fixed */
+  .theme-switch {
+    position: static !important;
+  }
+
+  /* Responsive sin solapes */
+  @media (max-width: 768px) {
+    .inner {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "title toggle"
+        "search search";
+      gap: 10px;
+    }
+    .search input {
+      height: 40px;
+    }
+  }
+</style>

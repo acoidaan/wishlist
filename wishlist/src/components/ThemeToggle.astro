@@ -1,0 +1,155 @@
+---
+/* Slider animado oscuro/claro con persistencia y respeto a preferencias del sistema */
+---
+
+<div class="theme-switch">
+  <input id="toggle" type="checkbox" role="switch" aria-label="Cambiar tema" />
+  <label for="toggle" aria-hidden="true">
+    <span class="icons" aria-hidden="true">
+      <span class="sun">☀️</span>
+      <span class="moon">🌙</span>
+    </span>
+    <span class="thumb" aria-hidden="true"></span>
+  </label>
+</div>
+
+<script is:inline>
+  // Lee el tema guardado o la preferencia del sistema
+  const saved =
+    typeof localStorage !== "undefined" && localStorage.getItem("theme");
+  const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
+  const prefersDark = mq?.matches;
+  const current = saved ?? (prefersDark ? "dark" : "light");
+  document.documentElement.dataset.theme = current;
+
+  const checkbox = document.getElementById("toggle");
+  checkbox.checked = current === "dark";
+
+  // Cambia y persiste
+  checkbox.addEventListener("change", () => {
+    const next = checkbox.checked ? "dark" : "light";
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+  });
+
+  // Si el usuario cambia la preferencia del sistema y no hay tema guardado, sincroniza (opcional)
+  if (!saved && mq) {
+    mq.addEventListener?.("change", (e) => {
+      const auto = e.matches ? "dark" : "light";
+      document.documentElement.dataset.theme = auto;
+      checkbox.checked = auto === "dark";
+    });
+  }
+</script>
+
+<style>
+  /* Tamaños (un poquito más largo) */
+  :root {
+    --switch-w: 74px;
+    --switch-h: 36px;
+    --thumb: 28px;
+    --pad: 4px;
+  }
+
+  .theme-switch {
+    position: fixed;
+    right: 14px;
+    top: 12px;
+    z-index: 50;
+  }
+
+  .theme-switch input {
+    /* Ocultar pero accesible para lectores de pantalla */
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .theme-switch label {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    width: var(--switch-w);
+    height: var(--switch-h);
+    border-radius: 9999px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition:
+      box-shadow 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease;
+  }
+  .theme-switch label:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .theme-switch .thumb {
+    position: absolute;
+    left: var(--pad);
+    top: 50%;
+    width: var(--thumb);
+    height: var(--thumb);
+    transform: translate(0, -50%);
+    border-radius: 9999px;
+    background: var(--text);
+    opacity: 0.9;
+    transition:
+      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 200ms ease,
+      opacity 200ms ease;
+    will-change: transform;
+  }
+
+  /* Iconos dentro del carril (solo decorativos) */
+  .theme-switch .icons {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 14px;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .theme-switch .sun,
+  .theme-switch .moon {
+    display: grid;
+    place-items: center;
+    opacity: 0.55;
+    transition: opacity 200ms ease;
+  }
+
+  /* Posición de la perilla al activar (oscuro) */
+  .theme-switch input:checked + label .thumb {
+    transform: translate(
+      calc(var(--switch-w) - var(--thumb) - var(--pad) * 2),
+      -50%
+    );
+    background: var(--accent);
+    opacity: 1;
+  }
+  .theme-switch input:checked + label .moon {
+    opacity: 0.95;
+  }
+  .theme-switch input:not(:checked) + label .sun {
+    opacity: 0.95;
+  }
+
+  /* Foco accesible */
+  .theme-switch input:focus-visible + label {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* Reduce motion si el usuario lo pide */
+  @media (prefers-reduced-motion: reduce) {
+    .theme-switch .thumb,
+    .theme-switch label {
+      transition: none;
+    }
+  }
+</style>

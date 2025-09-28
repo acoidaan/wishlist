@@ -1,0 +1,155 @@
+---
+/** Tipos para que TS no se queje */
+interface Item {
+  title: string;
+  price: number | string;
+  image: string;
+  url: string;
+  tags?: string[];
+}
+const { item } = Astro.props as { item: Item };
+
+function formatPrice(value) {
+  const num =
+    typeof value === "number"
+      ? value
+      : parseFloat(String(value).replace(",", "."));
+  if (!Number.isFinite(num)) return String(value);
+  return num.toFixed(2);
+}
+
+const priceText = formatPrice(item.price);
+
+/** Normalizamos tags a array SIEMPRE (evita el 'any' del map) */
+const tags: string[] = Array.isArray(item.tags) ? (item.tags as string[]) : [];
+const dataTags = tags.join(",");
+---
+
+<article
+  class="card"
+  data-title={item.title.toLowerCase()}
+  data-tags={dataTags.toLowerCase()}
+>
+  <a class="card-link" href={item.url} target="_blank" rel="noopener">
+    <img src={item.image} alt={item.title} loading="lazy" />
+    <h3>{item.title}</h3>
+    <p class="price">{priceText}€</p>
+  </a>
+
+  {
+    tags.length > 0 && (
+      <div class="tag-row">
+        {tags.map((t: string) => (
+          <button type="button" class="chip" data-tag={t}>
+            {t}
+          </button>
+        ))}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--card);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .card + .card {
+    margin-top: 14px;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* sin subrayados */
+  .card a,
+  .card a:visited,
+  .card a:hover,
+  .card a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card h3 {
+    margin: 10px 14px 6px;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .card .price {
+    margin: 0 14px 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .card-link {
+    display: block;
+  }
+  .card-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 12px;
+  }
+
+  /* Chips */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 14px 14px;
+  }
+  .chip {
+    --chip-bg: color-mix(in oklab, var(--card), var(--text) 10%);
+    --chip-border: color-mix(in oklab, var(--border), var(--text) 14%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--chip-border);
+    background: var(--chip-bg);
+    color: var(--text);
+    padding: 7px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      background 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .chip:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    background: color-mix(in oklab, var(--chip-bg), var(--accent) 12%);
+    border-color: color-mix(in oklab, var(--chip-border), var(--accent) 35%);
+  }
+  .chip:active {
+    transform: translateY(0);
+  }
+  .chip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Activo (cuando filtra por ese tag) */
+  .chip.active {
+    background: var(--accent);
+    border-color: color-mix(in oklab, var(--accent), #000 20%);
+    color: #0b1220;
+    box-shadow: var(--shadow-md);
+  }
+</style>

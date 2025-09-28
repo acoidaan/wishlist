@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Auriculares SONY WH-1000XM5",
+    "price": 239.0,
+    "url": "https://a.co/d/gSisvcK",
+    "image": "https://m.media-amazon.com/images/I/511c23mDjoL._AC_SY879_.jpg",
+    "tags": ["auriculares", "perifericos", "setup", "musica", "tecnologia"]
+  },
+
+  {
+    "title": "Vinilo Tame Impala - The Slow Rush",
+    "price": 35.0,
+    "url": "https://amzn.eu/d/gMz8ivr",
+    "image": "https://images-eu.ssl-images-amazon.com/images/I/71ZCkZehO4L.jpg",
+    "tags": ["musica", "vinilo"]
+  },
+
+  {
+    "title": "Perfume L'Essentiel Rituals",
+    "price": 49.9,
+    "url": "https://www.rituals.com/es-es/lessentiel-1118791.html",
+    "image": "https://rituals.scene7.com/is/image/rituals/1113651-eaudeparfum-50ml:Square?fmt=webp-alpha&hei=450&resMode=sharp2&wid=450",
+    "tags": ["perfume", "rituals"]
+  },
+
+  {
+    "title": "Teclado Keychron Q1 HE",
+    "price": 239.9,
+    "url": "https://eloquentclicks.com/products/keychron-q1-he-mechanical-keyboard?variant=49394794070354",
+    "image": "https://eloquentclicks.com/cdn/shop/files/Q1_HE_ISO_Espanol_Mechanical_Keyboard.png?v=1731584535&width=1800",
+    "tags": ["teclado", "informatica", "tecnologia"]
+  },
+
+  {
+    "title": "Camiseta FC Versailles Tercera Equipación 2025",
+    "price": 84.95,
+    "url": "https://globalsoccershop.eu/es/products/camiseta-fc-versailles-tercera-equipacion-2025-camiseta-de-futbol-de-francia",
+    "image": "https://globalsoccershop.eu/cdn/shop/files/FC_Versailles_Third_Shirt_480x.webp?v=1733410940",
+   "tags": ["futbol", "ropa", "camiseta"]
+  }
+]

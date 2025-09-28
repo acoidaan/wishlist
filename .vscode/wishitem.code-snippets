@@ -1,0 +1,15 @@
+{
+  "Wishlist Item": {
+    "prefix": "wishitem",
+    "body": [
+      "{",
+      "  \"title\": \"$1\",",
+      "  \"price\": $2,",
+      "  \"url\": \"$3\",",
+      "  \"image\": \"$4\",",
+      " \"tags\": [\"$5\"]",
+      "}"
+    ],
+    "description": "Crea un item para la wishlist"
+  }
+}
