@@ -36,7 +36,7 @@
     "price": 84.95,
     "url": "https://globalsoccershop.eu/es/products/camiseta-fc-versailles-tercera-equipacion-2025-camiseta-de-futbol-de-francia",
     "image": "https://globalsoccershop.eu/cdn/shop/files/FC_Versailles_Third_Shirt_480x.webp?v=1733410940",
-   "tags": ["futbol", "ropa", "camiseta", "camisa"]
+    "tags": ["futbol", "ropa", "camiseta", "camisa"]
   },
 
   {
@@ -44,6 +44,14 @@
     "price": 12.9,
     "url": "https://amzn.eu/d/gnnqZkY",
     "image": "https://m.media-amazon.com/images/I/9126ob6z1aL._SL1500_.jpg",
-   "tags": ["libro", "kindle", "lectura"]
+    "tags": ["libro", "kindle", "lectura"]
+  },
+
+  {
+    "title": "Apple Watch Series 11 (GPS) - Caja de aluminio en negro azabache (42 mm) - Pulsera de eslabones en color pizarra",
+    "price": 749,
+    "url": "https://www.apple.com/es/shop/buy-watch/apple-watch/42mm-gps-negro-azabache-aluminio-pizarra-pulsera-de-eslabones-onesize",
+    "image": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MXMD3_FV99_VW_34FR+watch-case-42-aluminum-jetblack-nc-s11_VW_34FR+watch-face-42-aluminum-jetblack-s11_VW_34FR?wid=5120&hei=3280&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=VDJKLzNHMGRWUXIyMGppenJZZm5GOTRnTmtUUEIyZ1V3WEpLMVBka0dZc3VRKzVvdStuNEE3QjhjNnFmSVlaNlpyc2k0WVBRbWYwZnlpZmNlVnhMWVhSRlE2a2xVdG1FZEh6Y2lYWXFUR0hEY0hnTGJsWFByZUlJd0I5WUJKVlYybnpqZ3lzN1JTSFNqanBIb2NIVlBaRnZGUUdUeGtYN2gySi9ZaWRpZitLckJnajVCaGRzU0pBREM1Q082Uk51NXVkZ2t0VWxQK2o2M01obVdMRmRjaWtoNFZVWXpYbXNERitnZ1pnSEoyVE1yRHowMlpHR1gzMFp4OWhLc1dmUg",
+    "tags": ["apple", "reloj", "watch", "tecnologia"]
   }
 ]
