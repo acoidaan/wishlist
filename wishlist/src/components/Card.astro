@@ -29,6 +29,7 @@ const dataTags = tags.join(",");
   class="card"
   data-title={item.title.toLowerCase()}
   data-tags={dataTags.toLowerCase()}
+  data-price={item.price}
 >
   <a class="card-link" href={item.url} target="_blank" rel="noopener">
     <img src={item.image} alt={item.title} loading="lazy" />
