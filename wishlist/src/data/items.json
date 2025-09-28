@@ -36,7 +36,7 @@
     "price": 84.95,
     "url": "https://globalsoccershop.eu/es/products/camiseta-fc-versailles-tercera-equipacion-2025-camiseta-de-futbol-de-francia",
     "image": "https://globalsoccershop.eu/cdn/shop/files/FC_Versailles_Third_Shirt_480x.webp?v=1733410940",
-    "tags": ["futbol", "ropa", "camiseta", "camisa", "moda"]
+    "tags": ["futbol", "ropa", "camiseta", "camisa", "moda", "retro"]
   },
 
   {
@@ -109,5 +109,13 @@
     "url": "https://futbolcamis.es/producto/camiseta-retro-liverpool-95-96-visitante/",
     "image": "https://futbolcamis.es/wp-content/uploads/2023/09/b5ccfbc1-scaled.jpeg",
    "tags": ["moda", "camiseta", "camisa", "ropa", "futbol"]
+  },
+
+  {
+    "title": "Camiseta Argentina 1994 Visitante (Por página china)",
+    "price": 20,
+    "url": "https://m.dhgate.com/product/retro-1986-argentina-soccer-jersey-maradona/998585056.html",
+    "image": "https://www.vintagefootballclub.com/wp-content/uploads/2025/05/argentina-1994-away-1-200x200.jpg.webp",
+   "tags": ["ropa", "futbol", "camisa", "camiseta", "retro"]
   }
 ]
