@@ -1,18 +1,13 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
-const logo = Astro.resolve('/assets/gift-box.svg')
+const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
 ---
 
 <header class="site-header">
   <div class="inner">
     <h1 class="brand">
-      <img
-        src={logo}
-        alt=""
-        aria-hidden="true"
-        class="logo"
-      />
-      <span>aco's wishlist</span>
+      <img src={logo} alt="" aria-hidden="true" class="logo" />
+      <span>aco’s wishlist</span>
     </h1>
 
     <div class="search">
