@@ -7,11 +7,36 @@ import Header from "../components/Header.astro";
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>aco’s wishlist</title>
-  <link
-    rel="icon"
-    href={import.meta.env.BASE_URL + "assets/gift-box.svg"}
-    type="image/svg+xml"
+  <meta
+    name="description"
+    content="Mi lista de deseos con productos, precios e ideas."
+  />
+
+  <!-- Open Graph / para redes sociales -->
+  <meta property="og:title" content="aco’s wishlist" />
+  <meta
+    property="og:description"
+    content="Mi lista de deseos con productos, precios e ideas."
+  />
+  <meta
+    property="og:image"
+    content={import.meta.env.BASE_URL + "assets/gift-box.svg"}
+  />
+  <meta property="og:url" content="https://acoidaan.github.io/wishlist/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="aco’s wishlist" />
+  <meta
+    name="twitter:description"
+    content="Mi lista de deseos con productos, precios e ideas."
+  />
+  <meta
+    name="twitter:image"
+    content={import.meta.env.BASE_URL + "assets/gift-box.svg"}
   />
 </head>
 
