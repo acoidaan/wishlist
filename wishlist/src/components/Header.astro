@@ -1,8 +1,8 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
 
-// Rutas que respetan GitHub Pages (base '/wishlist/')
-const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
+// Rutas que respetan el base '/wishlist/' en GitHub Pages
+const logo = import.meta.env.BASE_URL + "assets/gift-box.svg"; // <- si tu archivo se llama "git-box.svg", cámbialo aquí
 const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
 ---
 
@@ -31,7 +31,7 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       </svg>
     </div>
 
-    <!-- Selector de orden a la derecha de la búsqueda -->
+    <!-- Selector de orden (precio) -->
     <div class="sort">
       <img class="sort-icon" src={filterIcon} alt="" aria-hidden="true" />
       <label class="sr-only" for="wishlist-sort">Ordenar por precio</label>
@@ -49,7 +49,7 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
 </header>
 
 <script is:inline>
-  // Emite evento de búsqueda (debounce)
+  // Emite el evento de búsqueda con debounce
   const input = document.getElementById("wishlist-search");
   let t;
   input.addEventListener("input", () => {
@@ -74,7 +74,7 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: auto 1fr auto auto; /* title | search | sort | toggle */
+    grid-template-columns: auto 1fr auto auto; /* brand | search | sort | toggle */
     grid-template-areas: "title search sort toggle";
     gap: 12px;
     padding: 10px 16px;
@@ -131,21 +131,19 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     pointer-events: none;
   }
 
-  /* === Orden === */
   .sort {
     grid-area: sort;
     display: flex;
     align-items: center;
     gap: 8px;
     align-self: center;
-    min-width: 210px; /* tamaño cómodo */
+    min-width: 210px;
   }
   .sort-icon {
     width: 18px;
     height: 18px;
     opacity: 0.85;
     color: var(--muted);
-    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
   }
   .sort select {
     height: 38px;
@@ -163,7 +161,7 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       calc(100% - 11px) 53%;
     background-size: 6px 6px;
     background-repeat: no-repeat;
-    padding-right: 28px; /* espacio caret */
+    padding-right: 28px;
   }
   .sort select:focus {
     outline: 2px solid var(--accent);
@@ -178,7 +176,6 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     position: static !important;
   }
 
-  /* Accesibilidad */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -191,7 +188,6 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     border: 0;
   }
 
-  /* Responsive */
   @media (max-width: 900px) {
     .inner {
       grid-template-columns: 1fr auto;

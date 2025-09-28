@@ -1,46 +1,44 @@
 ---
-/** Tipos para que TS no se queje */
-interface Item {
-  title: string;
-  price: number | string;
-  image: string;
-  url: string;
-  tags?: string[];
-}
-const { item } = Astro.props as { item: Item };
+const { item } = Astro.props;
 
-function formatPrice(value) {
+// Ruta de imagen que respeta GitHub Pages (usa public/assets)
+const imgSrc =
+  typeof item.image === "string" && /^https?:\/\//i.test(item.image)
+    ? item.image
+    : import.meta.env.BASE_URL +
+      "assets/" +
+      String(item.image || "").replace(/^\/+/, "");
+
+// Precio con 2 decimales
+function formatPrice(value: unknown): string {
   const num =
     typeof value === "number"
       ? value
       : parseFloat(String(value).replace(",", "."));
-  if (!Number.isFinite(num)) return String(value);
-  return num.toFixed(2);
+  return Number.isFinite(num) ? num.toFixed(2) : String(value);
 }
-
 const priceText = formatPrice(item.price);
 
-/** Normalizamos tags a array SIEMPRE (evita el 'any' del map) */
-const tags: string[] = Array.isArray(item.tags) ? (item.tags as string[]) : [];
-const dataTags = tags.join(",");
+// Para data-attributes
+const dataTags = Array.isArray(item.tags) ? item.tags.join(",") : "";
 ---
 
 <article
   class="card"
-  data-title={item.title.toLowerCase()}
+  data-title={String(item.title || "").toLowerCase()}
   data-tags={dataTags.toLowerCase()}
-  data-price={item.price}
+  data-price={String(item.price)}
 >
   <a class="card-link" href={item.url} target="_blank" rel="noopener">
-    <img src={item.image} alt={item.title} loading="lazy" />
+    <img src={imgSrc} alt={item.title} loading="lazy" />
     <h3>{item.title}</h3>
     <p class="price">{priceText}€</p>
   </a>
 
   {
-    tags.length > 0 && (
+    Array.isArray(item.tags) && item.tags.length > 0 && (
       <div class="tag-row">
-        {tags.map((t: string) => (
+        {(item.tags as string[]).map((t: string) => (
           <button type="button" class="chip" data-tag={t}>
             {t}
           </button>
@@ -59,9 +57,7 @@ const dataTags = tags.join(",");
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease;
-  }
-  .card + .card {
-    margin-top: 14px;
+    margin: 0; /* el gap del grid gestiona el espacio */
   }
   .card:hover {
     transform: translateY(-2px);
@@ -74,7 +70,7 @@ const dataTags = tags.join(",");
     display: block;
   }
 
-  /* sin subrayados */
+  /* sin subrayados y sin color visited */
   .card a,
   .card a:visited,
   .card a:hover,
@@ -103,7 +99,7 @@ const dataTags = tags.join(",");
     border-radius: 12px;
   }
 
-  /* Chips */
+  /* TAGS pill */
   .tag-row {
     display: flex;
     flex-wrap: wrap;
@@ -138,15 +134,10 @@ const dataTags = tags.join(",");
     background: color-mix(in oklab, var(--chip-bg), var(--accent) 12%);
     border-color: color-mix(in oklab, var(--chip-border), var(--accent) 35%);
   }
-  .chip:active {
-    transform: translateY(0);
-  }
   .chip:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-
-  /* Activo (cuando filtra por ese tag) */
   .chip.active {
     background: var(--accent);
     border-color: color-mix(in oklab, var(--accent), #000 20%);
