@@ -18,6 +18,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wishlist   # 👈 SUBCARPETA con tu package.json
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,9 +29,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # sin cache npm para evitar conflictos con el lockfile
 
-      - name: Debug (lista archivos para verificar el lock)
+      - name: Debug (listar archivos)
         run: |
           pwd
           ls -la
@@ -41,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: wishlist/dist   # 👈 ruta al dist relativo a la raíz del repo
 
   deploy:
     needs: build
