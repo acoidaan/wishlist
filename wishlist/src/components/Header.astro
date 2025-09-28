@@ -32,6 +32,14 @@ const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
       <ThemeToggle />
     </div>
   </div>
+
+  <div class="sort">
+    <select id="wishlist-sort" aria-label="Ordenar">
+      <option value="default">Orden original</option>
+      <option value="asc">Precio: menor → mayor</option>
+      <option value="desc">Precio: mayor → menor</option>
+    </select>
+  </div>
 </header>
 
 <script is:inline>

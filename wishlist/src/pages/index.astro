@@ -116,12 +116,19 @@ import Header from "../components/Header.astro";
       .filter(Boolean);
   }
 
+  function parsePrice(card) {
+    const raw = card.getAttribute("data-price");
+    const num = parseFloat(raw.replace(",", "."));
+    return isNaN(num) ? 0 : num;
+  }
+
   function init() {
     const grid = document.getElementById("grid");
     const input = document.getElementById("wishlist-search");
+    const select = document.getElementById("wishlist-sort");
     if (!grid) return;
 
-    const cards = Array.from(grid.children);
+    let cards = Array.from(grid.children);
 
     function highlightChips(terms) {
       const set = new Set(terms);
@@ -149,17 +156,26 @@ import Header from "../components/Header.astro";
       highlightChips(terms);
     }
 
-    // Evento desde el header
-    document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
+    function applySort(order) {
+      let sorted = [...cards];
+      if (order === "asc") {
+        sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
+      } else if (order === "desc") {
+        sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
+      }
+      // reinyecta en el grid
+      for (const c of sorted) grid.appendChild(c);
+    }
 
-    // Click en chip: toggle del término en el input + filtro
+    // Eventos
+    document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
+    select?.addEventListener("change", () => applySort(select.value));
+
     document.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip[data-tag]");
       if (!chip) return;
-
       const term = (chip.dataset.tag || "").toLowerCase();
       const terms = new Set(tokenize(input?.value || ""));
-
       if (terms.has(term)) terms.delete(term);
       else terms.add(term);
       const next = Array.from(terms).join(" ");
@@ -168,7 +184,6 @@ import Header from "../components/Header.astro";
     });
   }
 
-  // Asegura DOM listo
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
