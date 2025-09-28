@@ -1,3 +1,4 @@
+# .github/workflows/deploy.yml
 name: Deploy Astro to GitHub Pages
 
 on:
@@ -24,20 +25,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          # 👇 fuerza a buscar el lockfile (sirve tanto si está en raíz
-          # como si algún día mueves el proyecto a subcarpeta)
-          cache-dependency-path: "**/package-lock.json"
+          # sin cache npm para evitar conflictos con el lockfile
 
-      - name: Debug (ver archivos)
+      - name: Debug (lista archivos para verificar el lock)
         run: |
           pwd
           ls -la
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install deps
+        run: npm install --no-fund --no-audit
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Build
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
