@@ -2,16 +2,17 @@
 import items from "../data/items.json";
 import Card from "../components/Card.astro";
 import Header from "../components/Header.astro";
-
-// Favicon (ajusta el nombre si tu archivo es "git-box.svg")
-const favicon = import.meta.env.BASE_URL + "assets/gift-box.svg";
 ---
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>aco’s wishlist</title>
-  <link rel="icon" href={favicon} type="image/svg+xml" />
+  <link
+    rel="icon"
+    href={import.meta.env.BASE_URL + "assets/gift-box.svg"}
+    type="image/svg+xml"
+  />
 </head>
 
 <Header />
@@ -23,51 +24,91 @@ const favicon = import.meta.env.BASE_URL + "assets/gift-box.svg";
 </main>
 
 <style is:global>
-  /* Masonry con CSS Grid + JS: respeta el orden del DOM (para ordenar por precio) */
+  :root {
+    --bg: #0b0f14; /* oscura por defecto si quieres; si prefieres claro, invierte con el bloque de before */
+    --text: #e6e7eb;
+    --muted: #b1b5bd;
+    --card: #0f1620;
+    --border: #1c2330;
+    --accent: #8ab4ff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
+  /* Preferencia del sistema */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f7f7f8;
+      --text: #0b0f14;
+      --muted: #555;
+      --card: #fff;
+      --border: #e4e6eb;
+      --accent: #6ea8fe;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+  /* Forzar por toggle */
+  html[data-theme="light"] {
+    --bg: #f7f7f8;
+    --text: #0b0f14;
+    --muted: #555;
+    --card: #fff;
+    --border: #e4e6eb;
+    --accent: #6ea8fe;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  html[data-theme="dark"] {
+    --bg: #0b0f14;
+    --text: #e6e7eb;
+    --muted: #b1b5bd;
+    --card: #0f1620;
+    --border: #1c2330;
+    --accent: #8ab4ff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
+
+  body {
+    font-family:
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Arial,
+      sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  h1 {
+    margin: 20px 18px 6px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  /* Masonry estilo Pinterest */
   .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 14px;
-    grid-auto-rows: 8px; /* debe coincidir con ROW en el script */
-    grid-auto-flow: dense;
+    column-width: 260px;
+    column-gap: 14px;
     padding: 18px;
   }
-  .grid > .card {
-    margin: 0;
-  } /* el gap se encarga del espacio */
-
-  /* (opcional) chip activo si filtras por tag desde búsqueda */
-  .chip.active {
-    background-color: var(--accent);
-    color: #0b1220;
+  .grid > * {
+    break-inside: avoid;
+    margin: 0 0 14px;
   }
 </style>
 
 <script is:inline>
-  const ROW = 8; // Debe coincidir con grid-auto-rows
-  const GAP = 14; // Debe coincidir con el gap del grid
-
-  function relayoutMasonry(grid) {
-    const cards = [...grid.children].filter(
-      (el) => el.style.display !== "none"
-    );
-    for (const el of cards) {
-      el.style.gridRowEnd = ""; // reset
-      const h = el.getBoundingClientRect().height;
-      const span = Math.ceil((h + GAP) / ROW);
-      el.style.gridRowEnd = `span ${span}`;
-    }
-  }
-
-  function imagesReady() {
-    const imgs = Array.from(document.images).filter(
-      (img) => !img.complete || img.naturalWidth === 0
-    );
-    return Promise.allSettled(
-      imgs.map((img) => img.decode?.().catch(() => {}))
-    );
-  }
-
   function tokenize(q) {
     return String(q || "")
       .split(/[\s,]+/)
@@ -76,7 +117,7 @@ const favicon = import.meta.env.BASE_URL + "assets/gift-box.svg";
   }
 
   function parsePrice(card) {
-    const raw = card.getAttribute("data-price") || "";
+    const raw = card.getAttribute("data-price");
     const num = parseFloat(raw.replace(",", "."));
     return isNaN(num) ? 0 : num;
   }
@@ -113,47 +154,39 @@ const favicon = import.meta.env.BASE_URL + "assets/gift-box.svg";
         card.style.display = matches(card, terms) ? "" : "none";
       }
       highlightChips(terms);
-      relayoutMasonry(grid);
     }
 
     function applySort(order) {
       let sorted = [...cards];
-      if (order === "asc") sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
-      else if (order === "desc")
+      if (order === "asc") {
+        sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
+      } else if (order === "desc") {
         sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
-      // Reinyecta en el DOM en el nuevo orden
+      }
+      // reinyecta en el grid
       for (const c of sorted) grid.appendChild(c);
-      // Actualiza referencia base
-      cards = sorted;
-      relayoutMasonry(grid);
     }
 
     // Eventos
     document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
     select?.addEventListener("change", () => applySort(select.value));
 
-    // Clic en chip: toggle el término en el input y filtra (AND con otros términos)
     document.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip[data-tag]");
       if (!chip) return;
       const term = (chip.dataset.tag || "").toLowerCase();
       const terms = new Set(tokenize(input?.value || ""));
-      terms.has(term) ? terms.delete(term) : terms.add(term);
+      if (terms.has(term)) terms.delete(term);
+      else terms.add(term);
       const next = Array.from(terms).join(" ");
       if (input) input.value = next;
       applyFilter(next);
     });
-
-    // Relayout cuando las imágenes estén listas y al redimensionar
-    imagesReady().finally(() => relayoutMasonry(grid));
-    let rid;
-    window.addEventListener("resize", () => {
-      cancelAnimationFrame(rid);
-      rid = requestAnimationFrame(() => relayoutMasonry(grid));
-    });
   }
 
-  if (document.readyState === "loading")
+  if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
-  else init();
+  } else {
+    init();
+  }
 </script>
