@@ -44,7 +44,9 @@ import items from "../data/items.json";
 
       <!-- Grid con masonry -->
       <div id="grid" class="grid">
-        {items.map((item) => <Card item={item} />)}
+        {items.map((item) => (
+          <Card item={item} />
+        ))}
       </div>
     </main>
 
@@ -70,11 +72,9 @@ import items from "../data/items.json";
       const GAP = 14;
 
       function relayoutMasonry(grid) {
-        const cards = [...grid.children].filter(
-          (el) => el.style.display !== "none"
-        );
+        const cards = [...grid.children].filter(el => el.style.display !== 'none');
         for (const el of cards) {
-          el.style.gridRowEnd = "";
+          el.style.gridRowEnd = '';
           const h = el.getBoundingClientRect().height;
           const span = Math.ceil((h + GAP) / ROW);
           el.style.gridRowEnd = `span ${span}`;
@@ -82,12 +82,8 @@ import items from "../data/items.json";
       }
 
       function imagesReady() {
-        const imgs = Array.from(document.images).filter(
-          (img) => !img.complete || img.naturalWidth === 0
-        );
-        return Promise.allSettled(
-          imgs.map((img) => img.decode?.().catch(() => {}))
-        );
+        const imgs = Array.from(document.images).filter(img => !img.complete || img.naturalWidth === 0);
+        return Promise.allSettled(imgs.map(img => img.decode?.().catch(()=>{})));
       }
 
       function tokenize(q) {
@@ -140,24 +136,19 @@ import items from "../data/items.json";
 
         function applySort(order) {
           let sorted = [...cards];
-          if (order === "asc")
-            sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
-          else if (order === "desc")
-            sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
+          if (order === "asc") sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
+          else if (order === "desc") sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
           for (const c of sorted) grid.appendChild(c);
           cards = sorted;
           relayoutMasonry(grid);
         }
 
         // Eventos
-        document.addEventListener("wishlist:query", (e) =>
-          applyFilter(e.detail)
-        );
+        document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
         select?.addEventListener("change", () => applySort(select.value));
 
         document.addEventListener("click", (e) => {
-          const chip = e.target.closest(".chip[data-tag]");
-          if (!chip) return;
+          const chip = e.target.closest(".chip[data-tag]"); if (!chip) return;
           const term = (chip.dataset.tag || "").toLowerCase();
           const terms = new Set(tokenize(input?.value || ""));
           terms.has(term) ? terms.delete(term) : terms.add(term);
@@ -168,14 +159,13 @@ import items from "../data/items.json";
 
         imagesReady().finally(() => relayoutMasonry(grid));
         let rid;
-        window.addEventListener("resize", () => {
+        window.addEventListener('resize', () => {
           cancelAnimationFrame(rid);
           rid = requestAnimationFrame(() => relayoutMasonry(grid));
         });
       }
 
-      if (document.readyState === "loading")
-        document.addEventListener("DOMContentLoaded", init);
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
       else init();
     </script>
   </body>
