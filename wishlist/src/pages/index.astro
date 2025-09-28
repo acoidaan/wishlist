@@ -1,172 +1,192 @@
 ---
-import Header from "../components/Header.astro";
-import Card from "../components/Card.astro";
 import items from "../data/items.json";
+import Card from "../components/Card.astro";
+import Header from "../components/Header.astro";
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>aco's wishlist</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/git-box.svg" />
-  </head>
-  <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-    <Header />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>aco’s wishlist</title>
+  <link
+    rel="icon"
+    href={import.meta.env.BASE_URL + "assets/gift-box.svg"}
+    type="image/svg+xml"
+  />
+</head>
 
-    <main class="max-w-7xl mx-auto p-4">
-      <div class="flex gap-2 items-center mb-4">
-        <!-- Input de búsqueda -->
-        <input
-          id="wishlist-search"
-          type="text"
-          placeholder="Buscar por título o tag..."
-          class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-        />
+<Header />
 
-        <!-- Filtro de orden -->
-        <div class="relative">
-          <select
-            id="wishlist-sort"
-            class="appearance-none border border-gray-300 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
-          >
-            <option value="">Ordenar</option>
-            <option value="asc">Precio ↑</option>
-            <option value="desc">Precio ↓</option>
-          </select>
-          <img
-            src="/assets/svg-filter.svg"
-            alt="Ordenar"
-            class="w-4 h-4 absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none"
-          />
-        </div>
-      </div>
+<main>
+  <section class="grid" id="grid">
+    {items.map((item) => <Card item={item} />)}
+  </section>
+</main>
 
-      <!-- Grid con masonry -->
-      <div id="grid" class="grid">
-        {items.map((item) => (
-          <Card item={item} />
-        ))}
-      </div>
-    </main>
+<style is:global>
+  :root {
+    --bg: #0b0f14; /* oscura por defecto si quieres; si prefieres claro, invierte con el bloque de before */
+    --text: #e6e7eb;
+    --muted: #b1b5bd;
+    --card: #0f1620;
+    --border: #1c2330;
+    --accent: #8ab4ff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
+  /* Preferencia del sistema */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f7f7f8;
+      --text: #0b0f14;
+      --muted: #555;
+      --card: #fff;
+      --border: #e4e6eb;
+      --accent: #6ea8fe;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+  /* Forzar por toggle */
+  html[data-theme="light"] {
+    --bg: #f7f7f8;
+    --text: #0b0f14;
+    --muted: #555;
+    --card: #fff;
+    --border: #e4e6eb;
+    --accent: #6ea8fe;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  html[data-theme="dark"] {
+    --bg: #0b0f14;
+    --text: #e6e7eb;
+    --muted: #b1b5bd;
+    --card: #0f1620;
+    --border: #1c2330;
+    --accent: #8ab4ff;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
+  }
 
-    <style>
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 14px;
-        grid-auto-rows: 8px;
-        grid-auto-flow: dense;
+  body {
+    font-family:
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Arial,
+      sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  h1 {
+    margin: 20px 18px 6px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  /* Masonry estilo Pinterest */
+  .grid {
+    column-width: 260px;
+    column-gap: 14px;
+    padding: 18px;
+  }
+  .grid > * {
+    break-inside: avoid;
+    margin: 0 0 14px;
+  }
+</style>
+
+<script is:inline>
+  function tokenize(q) {
+    return String(q || "")
+      .split(/[\s,]+/)
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
+  }
+
+  function parsePrice(card) {
+    const raw = card.getAttribute("data-price");
+    const num = parseFloat(raw.replace(",", "."));
+    return isNaN(num) ? 0 : num;
+  }
+
+  function init() {
+    const grid = document.getElementById("grid");
+    const input = document.getElementById("wishlist-search");
+    const select = document.getElementById("wishlist-sort");
+    if (!grid) return;
+
+    let cards = Array.from(grid.children);
+
+    function highlightChips(terms) {
+      const set = new Set(terms);
+      document.querySelectorAll(".chip[data-tag]").forEach((chip) => {
+        const t = (chip.dataset.tag || "").toLowerCase();
+        chip.classList.toggle("active", set.has(t));
+      });
+    }
+
+    function matches(card, terms) {
+      if (terms.length === 0) return true;
+      const haystack = (
+        (card.getAttribute("data-title") || "") +
+        " " +
+        (card.getAttribute("data-tags") || "")
+      ).toLowerCase();
+      return terms.every((t) => haystack.includes(t));
+    }
+
+    function applyFilter(q) {
+      const terms = tokenize(q);
+      for (const card of cards) {
+        card.style.display = matches(card, terms) ? "" : "none";
       }
-      .grid > .card {
-        margin: 0;
+      highlightChips(terms);
+    }
+
+    function applySort(order) {
+      let sorted = [...cards];
+      if (order === "asc") {
+        sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
+      } else if (order === "desc") {
+        sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
       }
-      .chip.active {
-        background-color: #3b82f6;
-        color: white;
-      }
-    </style>
+      // reinyecta en el grid
+      for (const c of sorted) grid.appendChild(c);
+    }
 
-    <script is:inline>
-      const ROW = 8;
-      const GAP = 14;
+    // Eventos
+    document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
+    select?.addEventListener("change", () => applySort(select.value));
 
-      function relayoutMasonry(grid) {
-        const cards = [...grid.children].filter(el => el.style.display !== 'none');
-        for (const el of cards) {
-          el.style.gridRowEnd = '';
-          const h = el.getBoundingClientRect().height;
-          const span = Math.ceil((h + GAP) / ROW);
-          el.style.gridRowEnd = `span ${span}`;
-        }
-      }
+    document.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip[data-tag]");
+      if (!chip) return;
+      const term = (chip.dataset.tag || "").toLowerCase();
+      const terms = new Set(tokenize(input?.value || ""));
+      if (terms.has(term)) terms.delete(term);
+      else terms.add(term);
+      const next = Array.from(terms).join(" ");
+      if (input) input.value = next;
+      applyFilter(next);
+    });
+  }
 
-      function imagesReady() {
-        const imgs = Array.from(document.images).filter(img => !img.complete || img.naturalWidth === 0);
-        return Promise.allSettled(imgs.map(img => img.decode?.().catch(()=>{})));
-      }
-
-      function tokenize(q) {
-        return String(q || "")
-          .split(/[\s,]+/)
-          .map((s) => s.trim().toLowerCase())
-          .filter(Boolean);
-      }
-
-      function parsePrice(card) {
-        const raw = card.getAttribute("data-price") || "";
-        const num = parseFloat(raw.replace(",", "."));
-        return isNaN(num) ? 0 : num;
-      }
-
-      function init() {
-        const grid = document.getElementById("grid");
-        const input = document.getElementById("wishlist-search");
-        const select = document.getElementById("wishlist-sort");
-        if (!grid) return;
-
-        let cards = Array.from(grid.children);
-
-        function highlightChips(terms) {
-          const set = new Set(terms);
-          document.querySelectorAll(".chip[data-tag]").forEach((chip) => {
-            const t = (chip.dataset.tag || "").toLowerCase();
-            chip.classList.toggle("active", set.has(t));
-          });
-        }
-
-        function matches(card, terms) {
-          if (terms.length === 0) return true;
-          const haystack = (
-            (card.getAttribute("data-title") || "") +
-            " " +
-            (card.getAttribute("data-tags") || "")
-          ).toLowerCase();
-          return terms.every((t) => haystack.includes(t));
-        }
-
-        function applyFilter(q) {
-          const terms = tokenize(q);
-          for (const card of cards) {
-            card.style.display = matches(card, terms) ? "" : "none";
-          }
-          highlightChips(terms);
-          relayoutMasonry(grid);
-        }
-
-        function applySort(order) {
-          let sorted = [...cards];
-          if (order === "asc") sorted.sort((a, b) => parsePrice(a) - parsePrice(b));
-          else if (order === "desc") sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
-          for (const c of sorted) grid.appendChild(c);
-          cards = sorted;
-          relayoutMasonry(grid);
-        }
-
-        // Eventos
-        document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
-        select?.addEventListener("change", () => applySort(select.value));
-
-        document.addEventListener("click", (e) => {
-          const chip = e.target.closest(".chip[data-tag]"); if (!chip) return;
-          const term = (chip.dataset.tag || "").toLowerCase();
-          const terms = new Set(tokenize(input?.value || ""));
-          terms.has(term) ? terms.delete(term) : terms.add(term);
-          const next = Array.from(terms).join(" ");
-          if (input) input.value = next;
-          applyFilter(next);
-        });
-
-        imagesReady().finally(() => relayoutMasonry(grid));
-        let rid;
-        window.addEventListener('resize', () => {
-          cancelAnimationFrame(rid);
-          rid = requestAnimationFrame(() => relayoutMasonry(grid));
-        });
-      }
-
-      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-      else init();
-    </script>
-  </body>
-</html>
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
