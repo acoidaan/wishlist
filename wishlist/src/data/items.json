@@ -12,7 +12,7 @@
     "price": 35.0,
     "url": "https://amzn.eu/d/gMz8ivr",
     "image": "https://images-eu.ssl-images-amazon.com/images/I/71ZCkZehO4L.jpg",
-    "tags": ["musica", "vinilo"]
+    "tags": ["musica", "vinilo", "tame impala"]
   },
 
   {
@@ -53,5 +53,37 @@
     "url": "https://www.apple.com/es/shop/buy-watch/apple-watch/42mm-gps-negro-azabache-aluminio-pizarra-pulsera-de-eslabones-onesize",
     "image": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MXMD3_FV99_VW_34FR+watch-case-42-aluminum-jetblack-nc-s11_VW_34FR+watch-face-42-aluminum-jetblack-s11_VW_34FR?wid=5120&hei=3280&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=VDJKLzNHMGRWUXIyMGppenJZZm5GOTRnTmtUUEIyZ1V3WEpLMVBka0dZc3VRKzVvdStuNEE3QjhjNnFmSVlaNlpyc2k0WVBRbWYwZnlpZmNlVnhMWVhSRlE2a2xVdG1FZEh6Y2lYWXFUR0hEY0hnTGJsWFByZUlJd0I5WUJKVlYybnpqZ3lzN1JTSFNqanBIb2NIVlBaRnZGUUdUeGtYN2gySi9ZaWRpZitLckJnajVCaGRzU0pBREM1Q082Uk51NXVkZ2t0VWxQK2o2M01obVdMRmRjaWtoNFZVWXpYbXNERitnZ1pnSEoyVE1yRHowMlpHR1gzMFp4OWhLc1dmUg",
     "tags": ["apple", "reloj", "watch", "tecnologia"]
+  },
+
+  {
+    "title": "Vinilo Nujabes - Metaphorical Music",
+    "price": 63.05,
+    "url": "https://a.co/d/2n7dnAk",
+    "image": "https://m.media-amazon.com/images/I/91tIjOEyHGL._SL1500_.jpg",
+   "tags": ["musica", "vinilo", "nujabes"]
+  },
+
+  {
+    "title": "Vinilo Nujabes - Departure",
+    "price": 72.36,
+    "url": "https://a.co/d/gwWGuu8",
+    "image": "https://m.media-amazon.com/images/I/61+2RvLsJjL._SL1500_.jpg",
+   "tags": ["musica", "vinilo", "nujabes"]
+  },
+
+  {
+    "title": "Vinilo Flower Boy - Tyler, The Creator",
+    "price": 26.15,
+    "url": "https://amzn.eu/d/ex6Apat",
+    "image": "https://m.media-amazon.com/images/I/814AZHWxf0L._SL1500_.jpg",
+   "tags": ["musica", "vinilo", "tyler the creator"]
+  },
+
+  {
+    "title": "Vinilo Doggystyle - Snoop Doggy Dogg",
+    "price": 45.38,
+    "url": "https://amzn.eu/d/cT1Ot1w",
+    "image": "https://m.media-amazon.com/images/I/A1MmGD+7e9L._SL1500_.jpg",
+   "tags": ["musica", "vinilo", "snoop dogg"]
   }
 ]
