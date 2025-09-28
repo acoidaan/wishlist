@@ -36,7 +36,7 @@
     "price": 84.95,
     "url": "https://globalsoccershop.eu/es/products/camiseta-fc-versailles-tercera-equipacion-2025-camiseta-de-futbol-de-francia",
     "image": "https://globalsoccershop.eu/cdn/shop/files/FC_Versailles_Third_Shirt_480x.webp?v=1733410940",
-    "tags": ["futbol", "ropa", "camiseta", "camisa"]
+    "tags": ["futbol", "ropa", "camiseta", "camisa", "moda"]
   },
 
   {
@@ -85,5 +85,21 @@
     "url": "https://amzn.eu/d/cT1Ot1w",
     "image": "https://m.media-amazon.com/images/I/A1MmGD+7e9L._SL1500_.jpg",
    "tags": ["musica", "vinilo", "snoop dogg"]
+  },
+
+  {
+    "title": "Anillo irregular piedra contraste",
+    "price": 15.95,
+    "url": "https://www.zara.com/es/es/anillo-irregular-piedra-contraste-p08435327.html?v1=459775703",
+    "image": "https://static.zara.net/assets/public/b1b4/1499/115d488090bc/8712656b80c1/08435327808-e2/08435327808-e2.jpg?ts=1754577314936&w=1125",
+   "tags": ["moda", "anillo", "joyeria", "joyas"]
+  },
+
+  {
+    "title": "Cadena acero torzada",
+    "price": 15.99,
+    "url": "https://www.bershka.com/es/cadena-acero-torzada-c0p196946405.html?colorId=808",
+    "image": "https://static.bershka.net/assets/public/a0ad/928a/2cbe45d6afee/93f5b14453cb/04879678808-p/04879678808-p.jpg?ts=1737022810022&w=850",
+   "tags": ["moda", "cadena", "collar", "joyeria", "joyas"]
   }
 ]
