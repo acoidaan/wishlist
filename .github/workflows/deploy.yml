@@ -2,8 +2,8 @@ name: Deploy Astro to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # usa la rama que tengas de default
-  workflow_dispatch:     # permite lanzarlo manualmente
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -19,12 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+          # 👇 fuerza a buscar el lockfile (sirve tanto si está en raíz
+          # como si algún día mueves el proyecto a subcarpeta)
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Debug (ver archivos)
+        run: |
+          pwd
+          ls -la
+
       - run: npm ci
       - run: npm run build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
