@@ -8,8 +8,12 @@ import Header from "../components/Header.astro";
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>aco’s wishlist</title>
-  <link rel="icon" href="/assets/gift-box.svg" type="image/svg+xml" />
-</head> 
+  <link
+    rel="icon"
+    href={Astro.resolve("/assets/gift-box.svg")}
+    type="image/svg+xml"
+  />
+</head>
 
 <Header />
 
