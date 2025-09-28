@@ -60,7 +60,7 @@
     "price": 63.05,
     "url": "https://a.co/d/2n7dnAk",
     "image": "https://m.media-amazon.com/images/I/91tIjOEyHGL._SL1500_.jpg",
-   "tags": ["musica", "vinilo", "nujabes"]
+    "tags": ["musica", "vinilo", "nujabes"]
   },
 
   {
@@ -68,7 +68,7 @@
     "price": 72.36,
     "url": "https://a.co/d/gwWGuu8",
     "image": "https://m.media-amazon.com/images/I/61+2RvLsJjL._SL1500_.jpg",
-   "tags": ["musica", "vinilo", "nujabes"]
+    "tags": ["musica", "vinilo", "nujabes"]
   },
 
   {
@@ -76,7 +76,7 @@
     "price": 26.15,
     "url": "https://amzn.eu/d/ex6Apat",
     "image": "https://m.media-amazon.com/images/I/814AZHWxf0L._SL1500_.jpg",
-   "tags": ["musica", "vinilo", "tyler the creator"]
+    "tags": ["musica", "vinilo", "tyler the creator"]
   },
 
   {
@@ -84,7 +84,7 @@
     "price": 45.38,
     "url": "https://amzn.eu/d/cT1Ot1w",
     "image": "https://m.media-amazon.com/images/I/A1MmGD+7e9L._SL1500_.jpg",
-   "tags": ["musica", "vinilo", "snoop dogg"]
+    "tags": ["musica", "vinilo", "snoop dogg"]
   },
 
   {
@@ -92,7 +92,7 @@
     "price": 15.95,
     "url": "https://www.zara.com/es/es/anillo-irregular-piedra-contraste-p08435327.html?v1=459775703",
     "image": "https://static.zara.net/assets/public/b1b4/1499/115d488090bc/8712656b80c1/08435327808-e2/08435327808-e2.jpg?ts=1754577314936&w=1125",
-   "tags": ["moda", "anillo", "joyeria", "joyas"]
+    "tags": ["moda", "anillo", "joyeria", "joyas"]
   },
 
   {
@@ -100,7 +100,7 @@
     "price": 15.99,
     "url": "https://www.bershka.com/es/cadena-acero-torzada-c0p196946405.html?colorId=808",
     "image": "https://static.bershka.net/assets/public/a0ad/928a/2cbe45d6afee/93f5b14453cb/04879678808-p/04879678808-p.jpg?ts=1737022810022&w=850",
-   "tags": ["moda", "cadena", "collar", "joyeria", "joyas"]
+    "tags": ["moda", "cadena", "collar", "joyeria", "joyas"]
   },
 
   {
@@ -108,14 +108,14 @@
     "price": 37.99,
     "url": "https://futbolcamis.es/producto/camiseta-retro-liverpool-95-96-visitante/",
     "image": "https://futbolcamis.es/wp-content/uploads/2023/09/b5ccfbc1-scaled.jpeg",
-   "tags": ["moda", "camiseta", "camisa", "ropa", "futbol"]
+    "tags": ["moda", "camiseta", "camisa", "ropa", "futbol"]
   },
 
   {
     "title": "Camiseta Argentina 1994 Visitante (Por página china)",
     "price": 20,
     "url": "https://m.dhgate.com/product/retro-1986-argentina-soccer-jersey-maradona/998585056.html",
-    "image": "https://www.vintagefootballclub.com/wp-content/uploads/2025/05/argentina-1994-away-1-200x200.jpg.webp",
-   "tags": ["ropa", "futbol", "camisa", "camiseta", "retro"]
+    "image": "https://futbolcamis.es/wp-content/uploads/2023/10/c06b0ac0-scaled.jpeg",
+    "tags": ["ropa", "futbol", "camisa", "camiseta", "retro"]
   }
 ]
