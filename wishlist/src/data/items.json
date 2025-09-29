@@ -124,15 +124,15 @@
     "price": 80,
     "url": "https://twojeys.com/es/products/single-star-necklace-silver",
     "image": "https://twojeys.com/cdn/shop/files/FT023_2a9d958c-49a2-4d5e-9eac-abdd761cf698.jpg?crop=center&height=1000&v=1756366338&width=800",
-   "tags": ["joyas", "collar", "cadena", "moda", "joyeria"]
+    "tags": ["joyas", "collar", "cadena", "moda", "joyeria"]
   },
-  
+
   {
     "title": "Anillo Wrapping Stars - Twojeys",
     "price": 95,
     "url": "https://twojeys.com/es/products/wrapping-stars-ring?_pos=2&_fid=94bb00646&_ss=c",
     "image": "https://twojeys.com/cdn/shop/files/FT056_263a3063-9e4b-4368-a936-889635a264a8.jpg?crop=center&height=1000&v=1738593517&width=800",
-   "tags": ["joyas", "anillo", "joyeria", "moda"]
+    "tags": ["joyas", "anillo", "joyeria", "moda"]
   },
 
   {
@@ -140,6 +140,6 @@
     "price": 70,
     "url": "https://www.instant-gaming.com/es/19691-comprar-ea-sports-fc-26-pc-ea-app/",
     "image": "https://gaming-cdn.com/images/products/19691/616x353/ea-sports-fc-26-pc-ea-app-cover.jpg?v=1758868329",
-   "tags": ["fifa", "juegos", "tecnologia", "entretenimiento"]
+    "tags": ["fifa", "juegos", "tecnologia", "entretenimiento"]
   }
 ]
