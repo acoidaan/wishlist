@@ -2,47 +2,92 @@
 import items from "../data/items.json";
 import Card from "../components/Card.astro";
 import Header from "../components/Header.astro";
+
+// SEO helpers
+const siteUrl = "https://acoidaan.github.io/wishlist/";
+function imgSrcFor(it) {
+  const v = String(it.image || "");
+  return /^https?:\/\//i.test(v)
+    ? v
+    : import.meta.env.BASE_URL + "assets/" + v.replace(/^\/+/, "");
+}
+
+// JSON-LD (ItemList con productos)
+const itemList = items.map((it, i) => ({
+  "@type": "Product",
+  position: i + 1,
+  name: it.title,
+  image: imgSrcFor(it),
+  url: it.url || siteUrl,
+  offers:
+    it.price != null
+      ? {
+          "@type": "Offer",
+          priceCurrency: "EUR",
+          price:
+            typeof it.price === "number"
+              ? it.price.toFixed(2)
+              : String(it.price),
+        }
+      : undefined,
+}));
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "aco’s wishlist",
+  itemListElement: itemList,
+};
 ---
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Mantienes tu título -->
   <title>aco’s wishlist</title>
+
+  <!-- ✅ Descripción con tus keywords -->
   <meta
     name="description"
-    content="Mi lista de deseos con productos, precios e ideas."
+    content="aco’s wishlist (lista de deseos de Aco / Acoidan). Mi wishlist personal con auriculares, vinilos, perfumes, libros, teclados, tecnología y más."
   />
+  <link rel="canonical" href={siteUrl} />
 
-  <!-- Open Graph / para redes sociales -->
-  <meta property="og:title" content="aco’s wishlist" />
+  <!-- Open Graph / redes -->
+  <meta property="og:title" content="aco’s wishlist — Lista de deseos de Acoidan" />
   <meta
     property="og:description"
-    content="Mi lista de deseos con productos, precios e ideas."
+    content="Wishlist de Aco (Acoidan): selección personal de productos, precios e ideas."
   />
-  <meta
-    property="og:image"
-    content={import.meta.env.BASE_URL + "assets/gift-box.svg"}
-  />
-  <meta property="og:url" content="https://acoidaan.github.io/wishlist/" />
+  <meta property="og:image" content={import.meta.env.BASE_URL + "assets/gift-box.svg"} />
+  <meta property="og:url" content={siteUrl} />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="aco’s wishlist" />
+  <meta name="twitter:title" content="aco’s wishlist — Lista de deseos de Acoidan" />
   <meta
     name="twitter:description"
-    content="Mi lista de deseos con productos, precios e ideas."
+    content="Wishlist de Aco / Acoidan con música, tecnología, moda y más."
   />
-  <meta
-    name="twitter:image"
-    content={import.meta.env.BASE_URL + "assets/gift-box.svg"}
-  />
+  <meta name="twitter:image" content={import.meta.env.BASE_URL + "assets/gift-box.svg"} />
+
+  <!-- ✅ JSON-LD para buscadores -->
+  <script type="application/ld+json">
+    {JSON.stringify(jsonLd)}
+  </script>
 </head>
 
 <Header />
 
 <main>
+  <!-- Texto oculto para SEO con tus frases objetivo (no afecta al diseño) -->
+  <p class="sr-only">
+    Esta es la lista de deseos de Aco, también llamada wishlist de Acoidan.
+    Aquí recopilo productos que me gustan: auriculares, vinilos, libros,
+    perfumes, teclados y tecnología.
+  </p>
+
   <section class="grid" id="grid">
     {items.map((item) => <Card item={item} />)}
   </section>
@@ -50,7 +95,7 @@ import Header from "../components/Header.astro";
 
 <style is:global>
   :root {
-    --bg: #0b0f14; /* oscura por defecto si quieres; si prefieres claro, invierte con el bloque de before */
+    --bg: #0b0f14;
     --text: #e6e7eb;
     --muted: #b1b5bd;
     --card: #0f1620;
@@ -60,7 +105,6 @@ import Header from "../components/Header.astro";
     --shadow-md: 0 3px 12px rgba(0, 0, 0, 0.45);
     --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.55);
   }
-  /* Preferencia del sistema */
   @media (prefers-color-scheme: light) {
     :root {
       --bg: #f7f7f8;
@@ -74,7 +118,6 @@ import Header from "../components/Header.astro";
       --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
   }
-  /* Forzar por toggle */
   html[data-theme="light"] {
     --bg: #f7f7f8;
     --text: #0b0f14;
@@ -99,13 +142,7 @@ import Header from "../components/Header.astro";
   }
 
   body {
-    font-family:
-      system-ui,
-      -apple-system,
-      "Segoe UI",
-      Roboto,
-      Arial,
-      sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
     margin: 0;
@@ -115,13 +152,8 @@ import Header from "../components/Header.astro";
     max-width: 1100px;
     margin: 0 auto;
   }
-  h1 {
-    margin: 20px 18px 6px;
-    font-size: 22px;
-    font-weight: 700;
-  }
 
-  /* Masonry estilo Pinterest */
+  /* Masonry estilo Pinterest (tu layout actual) */
   .grid {
     column-width: 260px;
     column-gap: 14px;
@@ -130,6 +162,15 @@ import Header from "../components/Header.astro";
   .grid > * {
     break-inside: avoid;
     margin: 0 0 14px;
+  }
+
+  /* Utilidad: oculto visual (para SEO/accesibilidad) */
+  .sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
   }
 </style>
 
@@ -142,7 +183,7 @@ import Header from "../components/Header.astro";
   }
 
   function parsePrice(card) {
-    const raw = card.getAttribute("data-price");
+    const raw = card.getAttribute("data-price") || "";
     const num = parseFloat(raw.replace(",", "."));
     return isNaN(num) ? 0 : num;
   }
@@ -188,7 +229,6 @@ import Header from "../components/Header.astro";
       } else if (order === "desc") {
         sorted.sort((a, b) => parsePrice(b) - parsePrice(a));
       }
-      // reinyecta en el grid
       for (const c of sorted) grid.appendChild(c);
     }
 
