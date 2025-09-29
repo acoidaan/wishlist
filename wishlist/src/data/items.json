@@ -141,5 +141,13 @@
     "url": "https://www.instant-gaming.com/es/19691-comprar-ea-sports-fc-26-pc-ea-app/",
     "image": "https://gaming-cdn.com/images/products/19691/616x353/ea-sports-fc-26-pc-ea-app-cover.jpg?v=1758868329",
     "tags": ["fifa", "juegos", "tecnologia", "entretenimiento"]
+  },
+
+  {
+    "title": "New Balance 9060",
+    "price": 190,
+    "url": "https://www.newbalance.es/es/pd/9060/U9060V1-50900.html?dwvar_U9060V1-50900_style=U9060ERA",
+    "image": "https://nb.scene7.com/is/image/NB/u9060era_nb_02_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
+   "tags": ["moda", "zapatos", "zapatillas", "new balance", "calzado"]
   }
 ]
