@@ -103,6 +103,12 @@ const jsonLd = {
   </section>
 </main>
 
+<!-- cierre del grid -->
+
+<div id="empty-state" class="empty-state" style="display: none;">
+  <!-- código del artifact "Mensaje de no resultados" -->
+</div>
+
 <style is:global>
   :root {
     --bg: #0b0f14;
@@ -212,9 +218,12 @@ const jsonLd = {
     const grid = document.getElementById("grid");
     const input = document.getElementById("wishlist-search");
     const select = document.getElementById("wishlist-sort");
+    const emptyState = document.getElementById("empty-state");
     if (!grid) return;
 
     let cards = Array.from(grid.children);
+    let currentQuery = "";
+    let currentMaxPrice = Infinity;
 
     function highlightChips(terms) {
       const set = new Set(terms);
@@ -234,11 +243,34 @@ const jsonLd = {
       return terms.every((t) => haystack.includes(t));
     }
 
-    function applyFilter(q) {
-      const terms = tokenize(q);
+    function applyFilters() {
+      const terms = tokenize(currentQuery);
+      let visibleCount = 0;
+
       for (const card of cards) {
-        card.style.display = matches(card, terms) ? "" : "none";
+        const price = parsePrice(card);
+        const matchesSearch = matches(card, terms);
+        const matchesPrice = price <= currentMaxPrice;
+
+        // Mostrar solo si cumple ambos filtros
+        const shouldShow = matchesSearch && matchesPrice;
+        card.style.display = shouldShow ? "" : "none";
+
+        if (shouldShow) {
+          visibleCount++;
+          // Reiniciar animación para cards que se muestran
+          card.style.animation = "none";
+          // Force reflow
+          void card.offsetWidth;
+          card.style.animation = "";
+        }
       }
+
+      // Mostrar/ocultar mensaje de no resultados
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? "block" : "none";
+      }
+
       highlightChips(terms);
     }
 
@@ -252,10 +284,22 @@ const jsonLd = {
       for (const c of sorted) grid.appendChild(c);
     }
 
-    // Eventos
-    document.addEventListener("wishlist:query", (e) => applyFilter(e.detail));
+    // Eventos de búsqueda
+    document.addEventListener("wishlist:query", (e) => {
+      currentQuery = e.detail;
+      applyFilters();
+    });
+
+    // Eventos de filtro de precio
+    document.addEventListener("wishlist:pricefilter", (e) => {
+      currentMaxPrice = e.detail;
+      applyFilters();
+    });
+
+    // Ordenamiento
     select?.addEventListener("change", () => applySort(select.value));
 
+    // Click en chips
     document.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip[data-tag]");
       if (!chip) return;
@@ -265,7 +309,8 @@ const jsonLd = {
       else terms.add(term);
       const next = Array.from(terms).join(" ");
       if (input) input.value = next;
-      applyFilter(next);
+      currentQuery = next;
+      applyFilters();
     });
   }
 
@@ -273,5 +318,28 @@ const jsonLd = {
     document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
+  }
+
+  // Animar cards al cargar y al filtrar
+  function animateVisibleCards() {
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card, index) => {
+      if (card.style.display !== "none") {
+        setTimeout(() => {
+          card.classList.add("visible");
+        }, index * 50); // 50ms entre cada card
+      } else {
+        card.classList.remove("visible");
+      }
+    });
+  }
+
+  // Ejecutar animación al cargar
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(animateVisibleCards, 100);
+    });
+  } else {
+    setTimeout(animateVisibleCards, 100);
   }
 </script>

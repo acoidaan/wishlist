@@ -2,15 +2,16 @@
 import ThemeToggle from "./ThemeToggle.astro";
 
 // Rutas que respetan el base '/wishlist/' en GitHub Pages
-const logo = import.meta.env.BASE_URL + "assets/gift-box.svg"; // <- si tu archivo se llama "git-box.svg", cámbialo aquí
+const logo = import.meta.env.BASE_URL + "assets/gift-box.svg";
 const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
 ---
 
 <header class="site-header">
+  <div class="header-gradient"></div>
   <div class="inner">
     <h1 class="brand">
       <img src={logo} alt="" aria-hidden="true" class="logo" />
-      <span>aco’s wishlist</span>
+      <span>aco's wishlist</span>
     </h1>
 
     <div class="search">
@@ -31,7 +32,6 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       </svg>
     </div>
 
-    <!-- Selector de orden (precio) -->
     <div class="sort">
       <img class="sort-icon" src={filterIcon} alt="" aria-hidden="true" />
       <label class="sr-only" for="wishlist-sort">Ordenar por precio</label>
@@ -42,6 +42,23 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       </select>
     </div>
 
+    <div class="price-filter">
+      <label class="price-label" for="price-range">
+        <span class="price-icon">€</span>
+        <span id="price-display">0 - 1000€</span>
+      </label>
+      <div class="slider-container">
+        <input
+          type="range"
+          id="price-range"
+          min="0"
+          max="1000"
+          value="1000"
+          aria-label="Filtrar por precio máximo"
+        />
+      </div>
+    </div>
+
     <div class="toggle-wrap">
       <ThemeToggle />
     </div>
@@ -49,7 +66,6 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
 </header>
 
 <script is:inline>
-  // Emite el evento de búsqueda con debounce
   const input = document.getElementById("wishlist-search");
   let t;
   input.addEventListener("input", () => {
@@ -59,6 +75,33 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       document.dispatchEvent(new CustomEvent("wishlist:query", { detail: q }));
     }, 80);
   });
+
+  const priceRange = document.getElementById("price-range");
+  const priceDisplay = document.getElementById("price-display");
+
+  if (priceRange && priceDisplay) {
+    // Función para actualizar el gradiente
+    function updateSliderGradient(value) {
+      const percent = (value / priceRange.max) * 100;
+      priceRange.style.background = `linear-gradient(to right, var(--accent) 0%, var(--accent) ${percent}%, color-mix(in oklab, var(--border), var(--text) 10%) ${percent}%)`;
+    }
+
+    // Inicializar el gradiente al cargar
+    updateSliderGradient(priceRange.value);
+
+    priceRange.addEventListener("input", (e) => {
+      const value = e.target.value;
+      priceDisplay.textContent = `0 - ${value}€`;
+      updateSliderGradient(value);
+    });
+
+    priceRange.addEventListener("change", (e) => {
+      const maxPrice = parseFloat(e.target.value);
+      document.dispatchEvent(
+        new CustomEvent("wishlist:pricefilter", { detail: maxPrice })
+      );
+    });
+  }
 </script>
 
 <style>
@@ -66,35 +109,98 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(8px);
-    background: color-mix(in oklab, var(--bg), #000 6%);
+    backdrop-filter: blur(12px) saturate(180%);
+    background: color-mix(in oklab, var(--bg), transparent 5%);
     border-bottom: 1px solid var(--border);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.04);
   }
+
+  .header-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent) 20%,
+      var(--accent) 80%,
+      transparent 100%
+    );
+    opacity: 0.75;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .header-gradient {
+      opacity: 0.85;
+      box-shadow: 0 1px 8px rgba(138, 180, 255, 0.3);
+    }
+  }
+
+  html[data-theme="dark"] .header-gradient {
+    opacity: 0.85;
+    box-shadow: 0 1px 8px rgba(138, 180, 255, 0.3);
+  }
+
   .inner {
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: auto 1fr auto auto; /* brand | search | sort | toggle */
-    grid-template-areas: "title search sort toggle";
-    gap: 12px;
-    padding: 10px 16px;
+    grid-template-columns: auto 1fr auto auto auto;
+    grid-template-areas: "title search sort price toggle";
+    gap: 14px;
+    padding: 12px 18px;
   }
 
   .brand {
     grid-area: title;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 11px;
     margin: 0;
     font-size: 20px;
     font-weight: 700;
     color: var(--text);
+    letter-spacing: -0.02em;
   }
+
   .logo {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     display: block;
-    color: var(--text);
+    transition:
+      transform 0.2s ease,
+      filter 0.2s ease;
+  }
+
+  /* Logo: color normal en modo claro, blanco en modo oscuro */
+  @media (prefers-color-scheme: light) {
+    .logo {
+      filter: drop-shadow(0 1px 2px rgba(110, 168, 254, 0.4));
+    }
+  }
+
+  html[data-theme="light"] .logo {
+    filter: drop-shadow(0 1px 2px rgba(110, 168, 254, 0.4));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .logo {
+      filter: brightness(0) invert(1)
+        drop-shadow(0 1px 3px rgba(255, 255, 255, 0.2));
+    }
+  }
+
+  html[data-theme="dark"] .logo {
+    filter: brightness(0) invert(1)
+      drop-shadow(0 1px 3px rgba(255, 255, 255, 0.2));
+  }
+
+  .brand:hover .logo {
+    transform: rotate(-5deg) scale(1.05);
   }
 
   .search {
@@ -102,32 +208,45 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     position: relative;
     align-self: center;
   }
+
   .search input {
     width: 100%;
-    height: 38px;
-    padding: 8px 36px 8px 12px;
-    border-radius: 10px;
+    height: 40px;
+    padding: 10px 38px 10px 14px;
+    border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--card);
     color: var(--text);
-    box-shadow: var(--shadow-sm);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      inset 0 1px 2px rgba(0, 0, 0, 0.02);
+    font-size: 14px;
+    transition:
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
   }
+
   .search input::placeholder {
     color: var(--muted);
   }
+
   .search input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
+    outline: none;
+    border-color: var(--accent);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--accent), transparent 85%),
+      0 2px 4px rgba(0, 0, 0, 0.08);
   }
+
   .search .icon {
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
     color: var(--muted);
-    opacity: 0.7;
+    opacity: 0.65;
     pointer-events: none;
   }
 
@@ -135,24 +254,43 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
     grid-area: sort;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
     align-self: center;
     min-width: 210px;
   }
+
   .sort-icon {
     width: 18px;
     height: 18px;
-    opacity: 0.85;
-    color: var(--muted);
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
   }
+
+  /* En modo claro: mostrar el icono normal sin cambios */
+
+  /* SOLO en modo oscuro: invertir a blanco */
+  @media (prefers-color-scheme: dark) {
+    .sort-icon {
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+  }
+
+  html[data-theme="dark"] .sort-icon {
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+  }
+
   .sort select {
-    height: 38px;
-    padding: 8px 12px;
-    border-radius: 10px;
+    height: 40px;
+    padding: 10px 32px 10px 14px;
+    border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--card);
     color: var(--text);
-    box-shadow: var(--shadow-sm);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      inset 0 1px 2px rgba(0, 0, 0, 0.02);
     appearance: none;
     background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
       linear-gradient(135deg, currentColor 50%, transparent 50%);
@@ -161,17 +299,127 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       calc(100% - 11px) 53%;
     background-size: 6px 6px;
     background-repeat: no-repeat;
-    padding-right: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
   }
+
+  .sort select:hover {
+    border-color: color-mix(in oklab, var(--border), var(--accent) 25%);
+  }
+
   .sort select:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
+    outline: none;
+    border-color: var(--accent);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--accent), transparent 85%),
+      0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .price-filter {
+    grid-area: price;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-self: center;
+    min-width: 180px;
+  }
+
+  .price-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .price-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--accent), transparent 85%);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  #price-display {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .slider-container {
+    position: relative;
+  }
+
+  #price-range {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    /* El JavaScript actualiza esto dinámicamente */
+    background: color-mix(in oklab, var(--border), var(--text) 10%);
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  #price-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--card);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  #price-range::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 3px 10px rgba(138, 180, 255, 0.4);
+  }
+
+  #price-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--card);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  #price-range::-moz-range-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 3px 10px rgba(138, 180, 255, 0.4);
+  }
+
+  #price-range::-moz-range-track {
+    height: 6px;
+    background: color-mix(in oklab, var(--border), var(--text) 10%);
+    border-radius: 10px;
   }
 
   .toggle-wrap {
     grid-area: toggle;
     align-self: center;
   }
+
   .theme-switch {
     position: static !important;
   }
@@ -194,11 +442,30 @@ const filterIcon = import.meta.env.BASE_URL + "assets/svg-filter.svg";
       grid-template-areas:
         "title toggle"
         "search search"
-        "sort sort";
-      gap: 10px;
+        "sort sort"
+        "price price";
+      gap: 12px;
+      padding: 12px 16px;
     }
     .sort {
       min-width: unset;
     }
+    .price-filter {
+      min-width: unset;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .site-header {
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 1px 1px rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  html[data-theme="light"] .site-header {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 1px 1px rgba(0, 0, 0, 0.02);
   }
 </style>
