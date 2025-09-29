@@ -54,28 +54,38 @@ const jsonLd = {
   <link rel="canonical" href={siteUrl} />
 
   <!-- Open Graph / redes -->
-  <meta property="og:title" content="aco’s wishlist — Lista de deseos de Acoidan" />
+  <meta
+    property="og:title"
+    content="aco’s wishlist — Lista de deseos de Acoidan"
+  />
   <meta
     property="og:description"
     content="Wishlist de Aco (Acoidan): selección personal de productos, precios e ideas."
   />
-  <meta property="og:image" content={import.meta.env.BASE_URL + "assets/gift-box.svg"} />
+  <meta
+    property="og:image"
+    content={import.meta.env.BASE_URL + "assets/gift-box.svg"}
+  />
   <meta property="og:url" content={siteUrl} />
   <meta property="og:type" content="website" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="aco’s wishlist — Lista de deseos de Acoidan" />
+  <meta
+    name="twitter:title"
+    content="aco’s wishlist — Lista de deseos de Acoidan"
+  />
   <meta
     name="twitter:description"
     content="Wishlist de Aco / Acoidan con música, tecnología, moda y más."
   />
-  <meta name="twitter:image" content={import.meta.env.BASE_URL + "assets/gift-box.svg"} />
+  <meta
+    name="twitter:image"
+    content={import.meta.env.BASE_URL + "assets/gift-box.svg"}
+  />
 
   <!-- ✅ JSON-LD para buscadores -->
-  <script type="application/ld+json">
-    {JSON.stringify(jsonLd)}
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </head>
 
 <Header />
@@ -83,9 +93,9 @@ const jsonLd = {
 <main>
   <!-- Texto oculto para SEO con tus frases objetivo (no afecta al diseño) -->
   <p class="sr-only">
-    Esta es la lista de deseos de Aco, también llamada wishlist de Acoidan.
-    Aquí recopilo productos que me gustan: auriculares, vinilos, libros,
-    perfumes, teclados y tecnología.
+    Esta es la lista de deseos de Aco, también llamada wishlist de Acoidan. Aquí
+    recopilo productos que me gustan: auriculares, vinilos, libros, perfumes,
+    teclados y tecnología.
   </p>
 
   <section class="grid" id="grid">
@@ -142,7 +152,13 @@ const jsonLd = {
   }
 
   body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      Arial,
+      sans-serif;
     background: var(--bg);
     color: var(--text);
     margin: 0;
@@ -167,10 +183,14 @@ const jsonLd = {
   /* Utilidad: oculto visual (para SEO/accesibilidad) */
   .sr-only {
     position: absolute !important;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0 0 0 0);
-    white-space: nowrap; border: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
 
