@@ -96,14 +96,6 @@
   },
 
   {
-    "title": "Cadena acero torzada",
-    "price": 15.99,
-    "url": "https://www.bershka.com/es/cadena-acero-torzada-c0p196946405.html?colorId=808",
-    "image": "https://static.bershka.net/assets/public/a0ad/928a/2cbe45d6afee/93f5b14453cb/04879678808-p/04879678808-p.jpg?ts=1737022810022&w=850",
-    "tags": ["moda", "cadena", "collar", "joyeria", "joyas"]
-  },
-
-  {
     "title": "Camiseta Retro Liverpool 95-96 Visitante",
     "price": 37.99,
     "url": "https://futbolcamis.es/producto/camiseta-retro-liverpool-95-96-visitante/",
@@ -148,7 +140,7 @@
     "price": 190,
     "url": "https://www.newbalance.es/es/pd/9060/U9060V1-50900.html?dwvar_U9060V1-50900_style=U9060ERA",
     "image": "https://nb.scene7.com/is/image/NB/u9060era_nb_02_i?$pdpflexf2$&qlt=80&fmt=webp&wid=440&hei=440",
-   "tags": ["moda", "zapatos", "zapatillas", "new balance", "calzado"]
+    "tags": ["moda", "zapatos", "zapatillas", "new balance", "calzado"]
   },
 
   {
@@ -156,6 +148,6 @@
     "price": 155,
     "url": "https://www.thomann.es/startone_mk_300_set.htm",
     "image": "https://bdbo2.thomann.de/thumb/bdb3000/pics/bdbo/12594396.jpg",
-   "tags": ["piano", "teclado", "musica", "instrumento"]
+    "tags": ["piano", "teclado", "musica", "instrumento"]
   }
 ]
