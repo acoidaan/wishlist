@@ -149,5 +149,45 @@
     "url": "https://www.thomann.es/startone_mk_300_set.htm",
     "image": "https://bdbo2.thomann.de/thumb/bdb3000/pics/bdbo/12594396.jpg",
     "tags": ["piano", "teclado", "musica", "instrumento"]
+  },
+
+  {
+    "title": "THE NOTORIOUS B.I.G - [GREATEST HITS]",
+    "price": 35.99,
+    "url": "https://amzn.eu/d/0YxlZf8",
+    "image": "https://m.media-amazon.com/images/I/71Gg7vGRTxL._SL1425_.jpg",
+    "tags": ["musica", "vinilo", "the notorious b.i.g."]
+  },
+
+  {
+    "title": "A Tribe Called Quest - The Low End Theory",
+    "price": 29.99,
+    "url": "https://amzn.eu/d/eTvzEuS",
+    "image": "https://i.scdn.co/image/ab67616d0000b273f38c6b37a21334e22005b1f7",
+    "tags": ["musica", "vinilo", "a tribe called quest"]
+  },
+
+  {
+    "title": "Tyler, The Creator - Call Me If You Get Lost",
+    "price": 23.81,
+    "url": "https://a.co/d/971xGjo",
+    "image": "https://m.media-amazon.com/images/I/81xsEabM4fL._SL1500_.jpg",
+    "tags": ["musica", "vinilo", "tyler, the creator"]
+  },
+
+  {
+    "title": "Mac DeMarco - Another One",
+    "price": 29.99,
+    "url": "https://m.media-amazon.com/images/I/81xsEabM4fL._SL1500_.jpg",
+    "image": "https://m.media-amazon.com/images/I/81duCujbwvL._SL1400_.jpg",
+    "tags": ["musica", "vinilo", "mac demarco"]
+  },
+
+  {
+    "title": "Tame Impala - Currents",
+    "price": 28.09,
+    "url": "https://a.co/d/1lVt02A",
+    "image": "https://m.media-amazon.com/images/I/91mp9eEux-L._SL1500_.jpg",
+    "tags": ["musica", "vinilo", "tame impala"]
   }
 ]
