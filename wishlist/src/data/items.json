@@ -4,7 +4,17 @@
     "price": 239.0,
     "url": "https://a.co/d/gSisvcK",
     "image": "https://m.media-amazon.com/images/I/511c23mDjoL._AC_SY879_.jpg",
-    "tags": ["auriculares", "perifericos", "setup", "musica", "tecnologia"]
+    "tags": [
+      "auriculares",
+      "perifericos",
+      "setup",
+      "musica",
+      "tecnologia",
+      "sony",
+      "inalambrico",
+      "bluetooth",
+      "unisex"
+    ]
   },
 
   {
@@ -12,7 +22,7 @@
     "price": 35.0,
     "url": "https://amzn.eu/d/gMz8ivr",
     "image": "https://images-eu.ssl-images-amazon.com/images/I/71ZCkZehO4L.jpg",
-    "tags": ["musica", "vinilo", "tame impala"]
+    "tags": ["musica", "vinilo", "tame impala", "ocio"]
   },
 
   {
@@ -20,7 +30,14 @@
     "price": 49.9,
     "url": "https://www.rituals.com/es-es/lessentiel-1118791.html",
     "image": "https://rituals.scene7.com/is/image/rituals/1113651-eaudeparfum-50ml:Square?fmt=webp-alpha&hei=450&resMode=sharp2&wid=450",
-    "tags": ["perfume", "rituals"]
+    "tags": [
+      "perfume",
+      "rituals",
+      "medio",
+      "cuidado personal",
+      "fragancia",
+      "regalo"
+    ]
   },
 
   {
@@ -28,7 +45,16 @@
     "price": 239.9,
     "url": "https://eloquentclicks.com/products/keychron-q1-he-mechanical-keyboard?variant=49394794070354",
     "image": "https://eloquentclicks.com/cdn/shop/files/Q1_HE_ISO_Espanol_Mechanical_Keyboard.png?v=1731584535&width=1800",
-    "tags": ["teclado", "informatica", "tecnologia", "perifericos", "setup"]
+    "tags": [
+      "teclado",
+      "informatica",
+      "tecnologia",
+      "perifericos",
+      "setup",
+      "keychron",
+      "gaming",
+      "inalambrico"
+    ]
   },
 
   {
@@ -36,7 +62,16 @@
     "price": 84.95,
     "url": "https://globalsoccershop.eu/es/products/camiseta-fc-versailles-tercera-equipacion-2025-camiseta-de-futbol-de-francia",
     "image": "https://globalsoccershop.eu/cdn/shop/files/FC_Versailles_Third_Shirt_480x.webp?v=1733410940",
-    "tags": ["futbol", "ropa", "camiseta", "camisa", "moda", "retro"]
+    "tags": [
+      "futbol",
+      "ropa",
+      "camiseta",
+      "camisa",
+      "moda",
+      "retro",
+      "deporte",
+      "textil"
+    ]
   },
 
   {
@@ -44,7 +79,14 @@
     "price": 12.9,
     "url": "https://amzn.eu/d/gnnqZkY",
     "image": "https://m.media-amazon.com/images/I/9126ob6z1aL._SL1500_.jpg",
-    "tags": ["libro", "kindle", "lectura"]
+    "tags": [
+      "libro",
+      "kindle",
+      "lectura",
+      "desarrollo personal",
+      "filosofia",
+      "psicologia"
+    ]
   },
 
   {
@@ -52,7 +94,19 @@
     "price": 749,
     "url": "https://www.apple.com/es/shop/buy-watch/apple-watch/42mm-gps-negro-azabache-aluminio-pizarra-pulsera-de-eslabones-onesize",
     "image": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MXMD3_FV99_VW_34FR+watch-case-42-aluminum-jetblack-nc-s11_VW_34FR+watch-face-42-aluminum-jetblack-s11_VW_34FR?wid=5120&hei=3280&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=VDJKLzNHMGRWUXIyMGppenJZZm5GOTRnTmtUUEIyZ1V3WEpLMVBka0dZc3VRKzVvdStuNEE3QjhjNnFmSVlaNlpyc2k0WVBRbWYwZnlpZmNlVnhMWVhSRlE2a2xVdG1FZEh6Y2lYWXFUR0hEY0hnTGJsWFByZUlJd0I5WUJKVlYybnpqZ3lzN1JTSFNqanBIb2NIVlBaRnZGUUdUeGtYN2gySi9ZaWRpZitLckJnajVCaGRzU0pBREM1Q082Uk51NXVkZ2t0VWxQK2o2M01obVdMRmRjaWtoNFZVWXpYbXNERitnZ1pnSEoyVE1yRHowMlpHR1gzMFp4OWhLc1dmUg",
-    "tags": ["apple", "reloj", "watch", "tecnologia", "moda"]
+    "tags": [
+      "apple",
+      "reloj",
+      "watch",
+      "tecnologia",
+      "moda",
+      "lujo",
+      "inalambrico",
+      "bluetooth",
+      "gps",
+      "fitness",
+      "salud"
+    ]
   },
 
   {
@@ -60,7 +114,7 @@
     "price": 63.05,
     "url": "https://a.co/d/2n7dnAk",
     "image": "https://m.media-amazon.com/images/I/91tIjOEyHGL._SL1500_.jpg",
-    "tags": ["musica", "vinilo", "nujabes"]
+    "tags": ["musica", "vinilo", "nujabes", "medio", "ocio"]
   },
 
   {
@@ -76,7 +130,7 @@
     "price": 26.15,
     "url": "https://amzn.eu/d/ex6Apat",
     "image": "https://m.media-amazon.com/images/I/814AZHWxf0L._SL1500_.jpg",
-    "tags": ["musica", "vinilo", "tyler the creator"]
+    "tags": ["musica", "vinilo", "tyler the creator", "hip-hop", "rap", "ocio"]
   },
 
   {
@@ -84,7 +138,7 @@
     "price": 45.38,
     "url": "https://amzn.eu/d/cT1Ot1w",
     "image": "https://m.media-amazon.com/images/I/A1MmGD+7e9L._SL1500_.jpg",
-    "tags": ["musica", "vinilo", "snoop dogg"]
+    "tags": ["musica", "vinilo", "snoop dogg", "hip-hop", "rap", "vintage"]
   },
 
   {
@@ -92,7 +146,16 @@
     "price": 15.95,
     "url": "https://www.zara.com/es/es/anillo-irregular-piedra-contraste-p08435327.html?v1=459775703",
     "image": "https://static.zara.net/assets/public/b1b4/1499/115d488090bc/8712656b80c1/08435327808-e2/08435327808-e2.jpg?ts=1754577314936&w=1125",
-    "tags": ["moda", "anillo", "joyeria", "joyas"]
+    "tags": [
+      "moda",
+      "anillo",
+      "joyeria",
+      "joyas",
+      "economico",
+      "zara",
+      "unisex",
+      "accesorio"
+    ]
   },
 
   {
@@ -100,7 +163,20 @@
     "price": 37.99,
     "url": "https://futbolcamis.es/producto/camiseta-retro-liverpool-95-96-visitante/",
     "image": "https://futbolcamis.es/wp-content/uploads/2023/09/b5ccfbc1-scaled.jpeg",
-    "tags": ["moda", "camiseta", "camisa", "ropa", "futbol", "retro", "vintage"]
+    "tags": [
+      "moda",
+      "camiseta",
+      "camisa",
+      "ropa",
+      "futbol",
+      "retro",
+      "vintage",
+      "liverpool",
+      "deporte",
+      "textil",
+      "coleccionable",
+      "nostalgia"
+    ]
   },
 
   {
@@ -108,7 +184,19 @@
     "price": 20,
     "url": "https://m.dhgate.com/product/retro-1986-argentina-soccer-jersey-maradona/998585056.html",
     "image": "https://futbolcamis.es/wp-content/uploads/2023/10/c06b0ac0-scaled.jpeg",
-    "tags": ["ropa", "futbol", "camisa", "camiseta", "retro", "vintage"]
+    "tags": [
+      "ropa",
+      "futbol",
+      "camisa",
+      "camiseta",
+      "retro",
+      "vintage",
+      "argentina",
+      "deporte",
+      "casual",
+      "textil",
+      "unisex"
+    ]
   },
 
   {
@@ -116,7 +204,15 @@
     "price": 80,
     "url": "https://twojeys.com/es/products/single-star-necklace-silver",
     "image": "https://twojeys.com/cdn/shop/files/FT023_2a9d958c-49a2-4d5e-9eac-abdd761cf698.jpg?crop=center&height=1000&v=1756366338&width=800",
-    "tags": ["joyas", "collar", "cadena", "moda", "joyeria"]
+    "tags": [
+      "joyas",
+      "collar",
+      "cadena",
+      "moda",
+      "joyeria",
+      "twojeys",
+      "accesorio"
+    ]
   },
 
   {
@@ -124,7 +220,7 @@
     "price": 95,
     "url": "https://twojeys.com/es/products/wrapping-stars-ring?_pos=2&_fid=94bb00646&_ss=c",
     "image": "https://twojeys.com/cdn/shop/files/FT056_263a3063-9e4b-4368-a936-889635a264a8.jpg?crop=center&height=1000&v=1738593517&width=800",
-    "tags": ["joyas", "anillo", "joyeria", "moda"]
+    "tags": ["joyas", "anillo", "joyeria", "moda", "twojeys", "accesorio"]
   },
 
   {
@@ -132,7 +228,20 @@
     "price": 70,
     "url": "https://www.instant-gaming.com/es/19691-comprar-ea-sports-fc-26-pc-ea-app/",
     "image": "https://gaming-cdn.com/images/products/19691/616x353/ea-sports-fc-26-pc-ea-app-cover.jpg?v=1758868329",
-    "tags": ["fifa", "juegos", "tecnologia", "entretenimiento"]
+    "tags": [
+      "fifa",
+      "juegos",
+      "tecnologia",
+      "entretenimiento",
+      "medio",
+      "ea sports",
+      "futbol",
+      "gaming",
+      "digital",
+      "pc",
+      "deporte",
+      "ocio"
+    ]
   },
 
   {
@@ -148,7 +257,16 @@
     "price": 155,
     "url": "https://www.thomann.es/startone_mk_300_set.htm",
     "image": "https://bdbo2.thomann.de/thumb/bdb3000/pics/bdbo/12594396.jpg",
-    "tags": ["piano", "teclado", "musica", "instrumento"]
+    "tags": [
+      "piano",
+      "teclado",
+      "musica",
+      "instrumento",
+      "medio",
+      "startone",
+      "electronico",
+      "ocio"
+    ]
   },
 
   {
@@ -156,7 +274,16 @@
     "price": 35.99,
     "url": "https://amzn.eu/d/0YxlZf8",
     "image": "https://m.media-amazon.com/images/I/71Gg7vGRTxL._SL1425_.jpg",
-    "tags": ["musica", "vinilo", "the notorious b.i.g."]
+    "tags": [
+      "musica",
+      "vinilo",
+      "the notorious b.i.g.",
+      "medio",
+      "hip-hop",
+      "rap",
+      "ocio",
+      "vintage"
+    ]
   },
 
   {
@@ -164,7 +291,17 @@
     "price": 29.99,
     "url": "https://amzn.eu/d/eTvzEuS",
     "image": "https://i.scdn.co/image/ab67616d0000b273f38c6b37a21334e22005b1f7",
-    "tags": ["musica", "vinilo", "a tribe called quest"]
+    "tags": [
+      "musica",
+      "vinilo",
+      "a tribe called quest",
+      "medio",
+      "hip-hop",
+      "rap",
+      "jazz",
+      "ocio",
+      "vintage"
+    ]
   },
 
   {
@@ -172,7 +309,15 @@
     "price": 23.81,
     "url": "https://a.co/d/971xGjo",
     "image": "https://m.media-amazon.com/images/I/81xsEabM4fL._SL1500_.jpg",
-    "tags": ["musica", "vinilo", "tyler, the creator"]
+    "tags": [
+      "musica",
+      "vinilo",
+      "tyler, the creator",
+      "medio",
+      "hip-hop",
+      "rap",
+      "ocio"
+    ]
   },
 
   {
@@ -180,7 +325,16 @@
     "price": 29.99,
     "url": "https://m.media-amazon.com/images/I/81xsEabM4fL._SL1500_.jpg",
     "image": "https://m.media-amazon.com/images/I/81duCujbwvL._SL1400_.jpg",
-    "tags": ["musica", "vinilo", "mac demarco"]
+    "tags": [
+      "musica",
+      "vinilo",
+      "mac demarco",
+      "medio",
+      "indie",
+      "rock",
+      "chill",
+      "ocio"
+    ]
   },
 
   {
@@ -188,6 +342,15 @@
     "price": 28.09,
     "url": "https://a.co/d/1lVt02A",
     "image": "https://m.media-amazon.com/images/I/91mp9eEux-L._SL1500_.jpg",
-    "tags": ["musica", "vinilo", "tame impala"]
+    "tags": [
+      "musica",
+      "vinilo",
+      "tame impala",
+      "audio",
+      "medio",
+      "psych-rock",
+      "indie",
+      "ocio"
+    ]
   }
 ]
